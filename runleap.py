@@ -89,6 +89,6 @@ else:
 # Close LEAP
 try:
     leap.Quit()
-    print("LEAP closed successfully.")
+    logging.info("LEAP closed successfully.")
 except Exception as e:
-    print("Error occurred while closing LEAP:", str(e))
+    logging.error("Error occurred while closing LEAP: %s", str(e))

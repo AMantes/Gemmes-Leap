@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Aug  1 16:19:07 2023
-This is to test github. the script opens LEAP, loads version 101, sets Zer Net as the active scenario and computes it. 
-Then it closes Leap
+The script opens LEAP, loads version It-leds maroc v 0.101_wresults.
+It loops through the scenarios, computes, then saves as CSV social costs per sector and closes the app.
+At the momemt units and costs saved as favourite tables are preset in leap.
 
-@author: Achilleas
+
+@author: Achilleas Mantes
 """
 
 import win32com.client as win32
@@ -51,7 +52,42 @@ try:
     logging.info("Morocco area opens successfully.")
 except Exception as e:
     logging.error("Error occurred while setting the active area in LEAP: %s", str(e))
+    
+    
+    
+# List of favorite charts
+favorite_charts = ['industry', 'residential', 'tertiaire', 'transport', 'transformation', 'resources', 'non_energy']
 
+# List of scenarios
+scenarios = ['Référence', 'CDN Plus', 'Net zéro']
+
+# Loop through the scenarios
+for scenario in scenarios:
+    try:
+        # Set the active scenario
+        leap.ActiveScenario = scenario
+        leap.ActiveView = "Results"
+
+        # Loop through the favorite charts and export each one as a CSV
+        for chart in favorite_charts:
+            leap.Favorites(chart).Activate()
+
+            # Set the file name for the CSV export
+            csv_file_name = f"{scenario}_{chart}.csv"
+
+            # Concatenate the working directory and the file name to create the full path
+            csv_file_path = os.path.join(working_directory, csv_file_name)
+
+            # Export the current favorite chart as a CSV
+            leap.ExportresultsCSV(csv_file_path)
+            logging.info(f"Results for scenario '{scenario}', chart '{chart}' successfully exported to '{csv_file_path}'.")
+    except Exception as e:
+        logging.error(f"Error occurred while exporting results for scenario '{scenario}', chart '{chart}': {str(e)}")
+    
+
+# =============================================================================
+
+# To be cleaned later
         
    # baseyear = leap.BaseYear
     #logging.info("LEAP initialized successfully.")
@@ -61,11 +97,7 @@ except Exception as e:
 #except Exception as e:
 #    logging.error("Error occurred while initializing LEAP: %s", str(e))
 
-#print(baseyear)
-
-
-# =============================================================================
-# 
+#print(baseyear) 
 # #### Load Scenarios
 # 
 # # Load the "Baseline" scenario
@@ -97,63 +129,9 @@ except Exception as e:
 #         logging.error(f"Error occurred while running scenario '{scenario_name}' calculations: {str(e)}")
 # else:
 #     logging.error(f"Failed to set '{scenario_name}' as the active scenario.")
-# 
-# 
-# # List of favorite charts
-# favorite_charts = ['industry', 'residential', 'tertiaire', 'transport', 'transformation', 'resources', 'non_energy']
-# 
-# # Loop through the favorite views and export each one as a CSV
-# for chart in favorite_charts:
-#     try:
-#         leap.Favorites(chart).Activate()
-#         
-#         # Set the file name for the CSV export
-#         csv_file_name = f"{chart}.csv"
-# 
-#         # Concatenate the working directory and the file name to create the full path
-#         csv_file_path = os.path.join(working_directory, csv_file_name)
-# 
-#         # Export the current favorite view as a CSV
-#         leap.ExportresultsCSV(csv_file_path)
-#         logging.info(f"Results for '{chart}' successfully exported to '{csv_file_path}'.")
-#     except Exception as e:
-#         logging.error(f"Error occurred while exporting results for '{chart}': {str(e)}")
-# 
-# 
 # =============================================================================
 
 
-
-
-
-# List of favorite charts
-favorite_charts = ['industry', 'residential', 'tertiaire', 'transport', 'transformation', 'resources', 'non_energy']
-
-# List of scenarios
-scenarios = ['Référence', 'CDN Plus', 'Net zéro']
-
-# Loop through the scenarios
-for scenario in scenarios:
-    try:
-        # Set the active scenario
-        leap.ActiveScenario = scenario
-        leap.ActiveView = "Results"
-
-        # Loop through the favorite charts and export each one as a CSV
-        for chart in favorite_charts:
-            leap.Favorites(chart).Activate()
-
-            # Set the file name for the CSV export
-            csv_file_name = f"{scenario}_{chart}.csv"
-
-            # Concatenate the working directory and the file name to create the full path
-            csv_file_path = os.path.join(working_directory, csv_file_name)
-
-            # Export the current favorite chart as a CSV
-            leap.ExportresultsCSV(csv_file_path)
-            logging.info(f"Results for scenario '{scenario}', chart '{chart}' successfully exported to '{csv_file_path}'.")
-    except Exception as e:
-        logging.error(f"Error occurred while exporting results for scenario '{scenario}', chart '{chart}': {str(e)}")
 
 
 # =============================================================================

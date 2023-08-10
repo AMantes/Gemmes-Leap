@@ -1,0 +1,397 @@
+---
+title: "AnalyseBaseline"
+author: "A. Godin"
+date: "2023-02-02"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+# knitr::opts_chunk$set(echo = TRUE)
+#charger les résultats
+source("RunForAchilleas.R")
+```
+
+## Production
+
+```{r figProd, fig.height = 6, fig.width = 12, fig.align = "center"}
+par(mfcol=c(2,4))
+mymatplot(resBaseline,c("VSKNA/VPRODMNA"),"bottomright")
+mymatplot(resBaseline,c("(VYDMNANet-VYDMNAe)/VYDMNAe"),"bottomright")
+mymatplot(resBaseline,c("VSNA/VPIB"),"topright")
+mymatplot(resBaseline,c("PRODMNA/PIB"),"topright")
+mymatplot(resBaseline,c("sigmaMC","sigmaMCC"),"topright")
+mymatplot(resBaseline,c("sigmaMI","sigmaMIC"),"topright")
+mymatplot(resBaseline,c("sigmaMUI","sigmaMUIC"),"topright")
+mymatplot(resBaseline,c("sigmaMX","sigmaMXC"),"topright")
+```
+
+## Demand Nominale
+
+```{r figDemand, fig.height = 6, fig.width = 12, fig.align = "center"}
+par(mfcol=c(2,3))
+mymatplot(resBaseline,c("CONS/PIB"),"topright")
+mymatplot(resBaseline,c("(UINA+UIA)/PIB"),"topright")
+mymatplot(resBaseline,c("ITOT/PIB"),"topright")
+mymatplot(resBaseline,c("XBS/PIB"),"topright")
+mymatplot(resBaseline,c("MBS/PIB"),"topright")
+mymatplot(resBaseline,c("DEMNA/PRODMNA"),"topright")
+```  
+
+## Exports
+
+```{r figExports, fig.height = 6, fig.width = 12, fig.align = "center"}
+par(mfcol=c(2,3))
+mymatplot(resBaseline[seq(101,3101,100),],c("growth(VXBS)","growth(VXBHAOCP)","growth(VXOCP)","growth(VPIB)"),"topright")
+mymatplot(resBaseline,c("sigmaX","sigmaXC"),"topright")
+mymatplot(resBaseline,c("growth(sigmaX)","growth(VDMHOCP)"),"topright")
+mymatplot(resBaseline,c("IPCET/(IPVAMNA*TCEN)"),"topright")
+mymatplot(resBaseline,c("nuXBHAOCP4Temp"),"topright")
+mymatplot(resBaseline,c("TCEN","TCENC"),"topright")
+mymatplot(resBaseline[seq(101,3101,100),],c("growth(IPCET)","growth(IPVAMNA)","growth(TCEN)","growth(TCEURO)","growth(TCDOLR)"),"topright")
+``` 
+
+## Demand Réelle
+
+```{r figDemandRelle, fig.height = 6, fig.width = 12, fig.align = "center"}
+par(mfcol=c(2,3))
+mymatplot(resBaseline,c("VCONS/VPIB"),"topright")
+mymatplot(resBaseline,c("(VUINA+VUIAA+VUIMNAA+VUIGA)/VPIB"),"topright")
+mymatplot(resBaseline,c("VITOT/VPIB"),"topright")
+mymatplot(resBaseline,c("VXBS/VPIB"),"topright")
+mymatplot(resBaseline,c("VMBS/VPIB"),"topright")
+mymatplot(resBaseline,c("VYDMNANet/VPRODMNA"),"topright")
+```  
+
+```{r figCroissanceReelle, fig.height = 6, fig.width = 12, fig.align = "center"}
+mymatplot(resBaseline[seq(101,3101,100),],c("growth(VCONS)","growth(VPIB)","growth(VMBS)","growth(VXBS)","growth(VITOT)","growth(VCG)"),"bottomright")
+```  
+
+```{r figInvReel, fig.height = 6, fig.width = 12, fig.align = "center"}
+par(mfcol=c(2,2))
+mymatplot(resBaseline,c("VITOT/VPIB"),"topright")
+mymatplot(resBaseline,c("VISOEI/VPIB"),"topright")
+mymatplot(resBaseline,c("VILOG/VPIB"),"topright")
+mymatplot(resBaseline,c("VIG_variante/VPIB"),"topright")
+```  
+
+```{r figInvReelCr, fig.height = 6, fig.width = 12, fig.align = "center"}
+par(mfcol=c(2,2))
+mymatplot(resBaseline[101:3101,],c("growth(VITOT)","growth(VPIB)"),"topright")
+mymatplot(resBaseline[101:3101,],c("growth(VISOEI)","growth(VPIB)"),"topright")
+mymatplot(resBaseline[101:3101,],c("growth(VILOG)","growth(VPIB)"),"topright")
+mymatplot(resBaseline[101:3101,],c("growth(VIG_variante)","growth(VPIB)"),"topright")
+# VISOEIC=VSKNA*(kappa1+kappa2*(VVAMNA/VSKNA)+kappa3*(PROFITSOEIC/(VSKNA*IPI))-TDEC)
+# VILOGC=VRDMNA*(kappaVILOG1-kappaVILOG2*ratioDetteRevenu)
+```  
+
+```{r figInvSousJacents, fig.height = 6, fig.width = 12, fig.align = "center"}
+par(mfcol=c(2,2))
+mymatplot(resBaseline[101:3101,],c("VVAMNA/VSKNA"),"topright")
+mymatplot(resBaseline[101:3101,],c("PROFITSOEIC/(VSKNA*IPI)"),"topright")
+mymatplot(resBaseline[101:3101,],c("VISOEI/VSKNA-TDEC"),"topright")
+# mymatplot(resBaseline[101:3101,],c("growth(VIG_variante)","growth(VPIB)"),"topright")
+# VISOEIC=VSKNA*(kappa1+kappa2*(VVAMNA/VSKNA)+kappa3*(PROFITSOEIC/(VSKNA*IPI))-TDEC)
+# VILOGC=VRDMNA*(kappaVILOG1-kappaVILOG2*ratioDetteRevenu)
+```  
+
+
+## Consommation
+
+```{r figCon, fig.height = 6, fig.width = 12, fig.align = "center"}
+par(mfcol=c(2,3))
+mymatplot(resBaseline,c("VCONSA/VCONS"),"topright")
+mymatplot(resBaseline,c("VCONSIA/VCONS"),"topright")
+mymatplot(resBaseline,c("VCONSNAHIA/VCONS"),"topright")
+mymatplot(resBaseline,c("CONSA/CONS"),"topright")
+mymatplot(resBaseline,c("CONSIA/CONS"),"topright")
+mymatplot(resBaseline,c("CONSNAHIA/CONS"),"topright")
+```  
+
+## Distribution
+
+```{r figDistrib, fig.height = 6, fig.width = 12, fig.align = "center"}
+par(mfcol=c(2,3))
+mymatplot(resBaseline,c("RNSMNA/PIB","RNSA/PIB"),"topright")
+mymatplot(resBaseline,c("(RSA_B)/PIB",'RSG_B/PIB',"RSMNA_B/PIB"),"topright")
+mymatplot(resBaseline,c("DivM_R/PIB"),"topright")
+mymatplot(resBaseline,c("TRF_MRE/PIB"),"topright")
+mymatplot(resBaseline,c("CSSM_V/PIB"),"topright")
+mymatplot(resBaseline,c("PSM/PIB"),"topright")
+```
+
+## Emploi
+
+```{r figEmploi, fig.height = 6, fig.width = 12, fig.align = "center"}
+par(mfcol=c(1,2))
+mymatplot(resBaseline[seq(101,3101,100),],c("growth(LG)","growth(LAG)","growth(LMNA)","growth(LSMNA)"),"topright")
+grid()
+```  
+
+## Prix
+
+```{r figPrix, fig.height = 6, fig.width = 12, fig.align = "center"}
+par(mfcol=c(2,2))
+mymatplot(resBaseline[seq(1,3101,100),],c("growth(IPPRODMNA)","growth(TSMNA)-growth(rhoMNA)","growth(muVAMNA)","growth(IPUIA)","growth(IPUINA)"),"topright")
+grid()
+mymatplot(resBaseline[seq(1,3101,100),],c("growth(IPMBA)","growth(IPMBALT)","growth(IPMBAC)"),"topleft")
+mymatplot(resBaseline[seq(1,3101,100),],c("growth(IPME)","growth(IPMELT)","growth(IPMEC)","growth(PPET*TCDOLR/(PPET_2007*TCDOLR_2007))"),"topleft")
+
+grid()
+```  
+
+## Distribution
+
+```{r figDistrib2, fig.height = 6, fig.width = 12, fig.align = "center"}
+par(mfcol=c(2,3))
+mymatplot(resBaseline,c("(RNSMNA+RNSA)/PIB"),"topright")
+mymatplot(resBaseline,c("(RSA_B+RSMNAHIC_B+RSIC_B+RSBAM_B+RSG_B)/PIB"),"topright")
+mymatplot(resBaseline,c("DivM_R/PIB"),"topright")
+mymatplot(resBaseline,c("TRF_MRE/PIB"),"topright")
+mymatplot(resBaseline,c("CSSM_V/PIB"),"topright")
+mymatplot(resBaseline,c("PSM/PIB"),"topright")
+``` 
+
+## Budget Etat
+
+```{r figFiscal, fig.height = 9, fig.width = 12, fig.align = "center"}
+par(mfcol=c(2,3))
+mymatplot(resBaseline,c("(TAXESA+TAXESNA)/PIB"),"topright")
+mymatplot(resBaseline,c("(CSEA+CSEMNAHIC+CSEIC+CSEBAM+CSEG)/PIB"),"topright")
+mymatplot(resBaseline,c("(IPDA+IPDMNAHIC+IPDIC+IPDBAM+IPDG)/PIB"),"topright")
+mymatplot(resBaseline,c("(TRPS+TRPMNA)/PIB"),"topright")
+mymatplot(resBaseline,c("(IntDBG_IC-IntDg_N-IntBg_N-IntBgW-IntCBIC_G-IntCw_G)/PIB"),"topright")
+mymatplot(resBaseline,c("(CAPFG)/PIB"),"topright")
+```  
+
+## Inflation
+
+```{r figInflation, fig.height = 9, fig.width = 12, fig.align = "center"}
+par(mfcol=c(2,2))
+# mymatplot(resBaseline[seq(101,3101,100),],c("growth(IPX)","growth(IPXBA)","growth(IPXOCP)","growth(IPXHAOCP)","growth(IPXSHVTR)","growth(IPXSTR)","growth(IPXSV)"),"topright")
+mymatplot(resBaseline[seq(101,3101,100),],c("growth(IPX)","growth(IPXSHVTR)","growth(IPXSTR)","growth(IPXHAOCP)","growth(IPXSV)"),"topright")
+# mymatplot(resBaseline[seq(101,3101,100),],c("growth(IPX)","growth(IPXBA)","growth(IPXOCP)","growth(IPXHAOCP)","growth(IPXSHVTR)","growth(IPXSTR)","growth(IPXSV)"),"topright")
+mymatplot(resBaseline[seq(101,3101,100),],c("growth(IPMBA)","growth(IPMHEA)","growth(IPMHEA)","growth(IPMS)"),"topright")
+# mymatplot(resBaseline[seq(101,3101,100),],c("growth(IPX)","growth(IPXBA)","growth(IPXOCP)","growth(IPXHAOCP)","growth(IPXSHVTR)","growth(IPXSTR)","growth(IPXSV)"),"topright")
+mymatplot(resBaseline[seq(101,3101,100),],c("IPXSTR","IPXSTRC"),"topright")
+# mymatplot(resBaseline[seq(101,3101,100),],c("growth(IPX)","growth(IPXBA)","growth(IPXOCP)","growth(IPXHAOCP)","growth(IPXSHVTR)","growth(IPXSTR)","growth(IPXSV)"),"topright")
+mymatplot(resBaseline[seq(101,3101,100),],c("IPXHAOCP","IPXHAOCPC"),"topright")
+```
+
+## Inflation
+
+```{r figInflation2, fig.height = 9, fig.width = 12, fig.align = "center"}
+par(mfcol=c(2,2))
+mymatplot(resBaseline[seq(101,3101,100),],c("growth(IPPIB)","growth(IPCF)","growth(IPI)","growth(IPX)","growth(IPM)","growth(IPS_Flux)"),"topright")
+mymatplot(resBaseline[seq(101,3101,100),],c("growth(IPCF)","growth(IPCFA)","growth(IPCFIA)","growth(IPCFNAHIA)"),"topright")
+mymatplot(resBaseline[seq(101,3101,100),],c("growth(IPX)","growth(IPXBA)","growth(IPXOCP)","growth(IPXHAOCP)","growth(IPXSHVTR)","growth(IPXSTR)","growth(IPXSV)"),"topright")
+mymatplot(resBaseline[seq(101,3101,100),],c("omegaIPC","omegaIPI","omegaIPCG","omegaIPX","omegaIPM","omegaIPS_flux"),"topright")
+```  
+
+## salaire
+
+```{r figInSalaires, fig.height = 9, fig.width = 12, fig.align = "center"}
+par(mfcol=c(4,2))
+mymatplot(resBaseline[seq(101,3101,100),],c("growth(IPPRODMNA)","growth(TSMNA_B)","growth(VTSMNA_B)","growth(IPCFNAHIALT)"),"topright")
+mymatplot(resBaseline[seq(1,3101,100),],c("growth(IPPRODMNA)","growth(IPUIA)","growth(IPUINA)","growth(IPMHEA)"),"topright")
+mymatplot(resBaseline[seq(1,3101,100),],c("growth(IPPRODA)","growth(IPMBA)"),"topright")
+mymatplot(resBaseline[seq(1,3101,100),],c("IPPRODA_Infl","IPMBA_Infl"),"topright")
+mymatplot(resBaseline[seq(1,3101,100),],c("muVAMNA","muVAMNAC"),"topright")
+mymatplot(resBaseline[seq(1,3101,100),],c("IPPRODMNALT_Infl","(IPPRODMNAC-IPPRODMNA)"),"topright")
+mymatplot(resBaseline[seq(1,3101,100),],c("growth(IPPRODMNA)","growth(TSMNA)-growth(rhoMNA)","growth(muVAMNA)","growth(IPUIA)","growth(IPUINA)"),"topright")
+```
+
+## Capacités de financiement
+
+```{r figCapFin, fig.height = 9, fig.width = 12, fig.align = "center"}
+par(mfcol=c(1,1))
+mymatplot(resBaseline[seq(101,3101,100),],c("CAPFG/PIB","CAPFM/PIB","CAPFIC/PIB","CAPFSOEIHIC/PIB","CAPFW/PIB","CAPFBAM/PIB"),"topright")
+```
+
+## Capacités de financiement entreprises
+
+```{r figCapFinSOEHIC, fig.height = 9, fig.width = 12, fig.align = "center"}
+par(mfcol=c(3,3))
+
+mymatplot(resBaseline[seq(101,3101,100),],c("CAPFSOEIHIC/PIB","EPARSOEIHIC/PIB","RDSOEIHIC/PIB","EBEMNAHIC/PIB","VAMNAHIC/PIB","(XNAHIC-MNAHIC)/PIB"),"topright")
+
+mymatplot(resBaseline[seq(101,3101,100),],c("(UIANAHIA-UIANAHIAHIC)/PIB","(CONSNAHIA-CONSNAHIAHIC)/PIB","(CGMNA-CGMNAHIC)/PIB","(XNA-XNAHIC)/PIB","(MNA-MNAHIC)/PIB","(XNAHIC-MNAHIC)/PIB"),"topright")
+
+mymatplot(resBaseline[seq(101,3101,100),],c("(UIIA+UINAHIAHIC+CONSIA+CONSNAHIAHIC+CGMNAHIC+INA+SNA_Flux+XNAHIC)/PIB-(UIMNAA+UIMNAIA+UIMNANAHIAHIC+UIMNAHIC_SIF+UIMNAHIC_SF)/PIB","(-(MTCNAHIC+TAXESNAHIC-SPTNA)+PFATMNAHIC-MNAHIC)/PIB"),"topright")
+
+# RDSOEIHIC=(EBEMNAHIC-RNSMNA+IntSHIC_R-IntSHIC_V+HarmSHIC-DivSHIC-RlyS_V-RassSHIC_V+RassSHIC_R+BrIDE+CSSSHIC_R-PSSHIC-TRFSHIC)*(1-TTRPSHIC)
+
+# (+IntSHIC_R-IntSHIC_V)/PIB
+# EBEMNAHIC=VAMNAHIC-RSMNAHIC_B-CSEMNAHIC-IPDMNAHIC+SPDMNAHIC
+# VAMNAHIC=(UIIA+UINAHIAHIC+CONSIA+CONSNAHIAHIC+CGMNAHIC+INA+SNA_Flux+XNAHIC)-(MTCNAHIC+TAXESNAHIC-SPTNA)+PFATMNAHIC-MNAHIC-(UIMNAA+UIMNAIA+UIMNANAHIAHIC+UIMNAHIC_SIF+UIMNAHIC_SF)
+mymatplot(resBaseline[seq(101,3101,100),],c("(UIIA+UINAHIAHIC+CONSIA+CONSNAHIAHIC+CGMNAHIC+INA+SNA_Flux+XNAHIC-MNAHIC)/PRODMNA"),"topright")
+mymatplot(resBaseline[seq(101,3101,100),],c("(-(MTCNAHIC+TAXESNAHIC-SPTNA)+PFATMNAHIC)/PRODMNA"),"topright")
+mymatplot(resBaseline[seq(101,3101,100),],c("-(UIMNAA+UIMNAIA+UIMNANAHIAHIC+UIMNAHIC_SIF+UIMNAHIC_SF)/PRODMNA"),"topright")
+# RDSOEIHIC=(EBEMNAHIC-RNSMNA+IntSHIC_R-IntSHIC_V+HarmSHIC-DivSHIC-RlyS_V-RassSHIC_V+RassSHIC_R+BrIDE+CSSSHIC_R-PSSHIC-TRFSHIC)*(1-TTRPSHIC)
+
+# (+IntSHIC_R-IntSHIC_V)/PIB
+# EBEMNAHIC=VAMNAHIC-RSMNAHIC_B-CSEMNAHIC-IPDMNAHIC+SPDMNAHIC
+# VAMNAHIC=(UIIA+UINAHIAHIC+CONSIA+CONSNAHIAHIC+CGMNAHIC+INA+SNA_Flux+XNAHIC)-(MTCNAHIC+TAXESNAHIC-SPTNA)+PFATMNAHIC-MNAHIC-(UIMNAA+UIMNAIA+UIMNANAHIAHIC+UIMNAHIC_SIF+UIMNAHIC_SF)
+mymatplot(resBaseline[seq(101,3101,100),],c("(UIIA+UINAHIAHIC+CONSIA+CONSNAHIAHIC+CGMNAHIC+INA+SNA_Flux+XNAHIC-MNAHIC)/PIB"),"topright")
+mymatplot(resBaseline[seq(101,3101,100),],c("(-(MTCNAHIC+TAXESNAHIC-SPTNA)+PFATMNAHIC)/PIB"),"topright")
+mymatplot(resBaseline[seq(101,3101,100),],c("-(UIMNAA+UIMNAIA+UIMNANAHIAHIC+UIMNAHIC_SIF+UIMNAHIC_SF)/PIB"),"topright")
+# RDSOEIHIC=(EBEMNAHIC-RNSMNA+IntSHIC_R-IntSHIC_V+HarmSHIC-DivSHIC-RlyS_V-RassSHIC_V+RassSHIC_R+BrIDE+CSSSHIC_R-PSSHIC-TRFSHIC)*(1-TTRPSHIC)
+
+# (+IntSHIC_R-IntSHIC_V)/PIB
+# EBEMNAHIC=VAMNAHIC-RSMNAHIC_B-CSEMNAHIC-IPDMNAHIC+SPDMNAHIC
+# VAMNAHIC=(UIIA+UINAHIAHIC+CONSIA+CONSNAHIAHIC+CGMNAHIC+INA+SNA_Flux+XNAHIC)-(MTCNAHIC+TAXESNAHIC-SPTNA)+PFATMNAHIC-MNAHIC-(UIMNAA+UIMNAIA+UIMNANAHIAHIC+UIMNAHIC_SIF+UIMNAHIC_SF)
+```
+
+```{r figCapFinSOEHIC3, fig.height = 9, fig.width = 12, fig.align = "center"}
+par(mfcol=c(3,2))
+
+mymatplot(resBaseline[seq(101,3101,100),],c("CAPFSOEIHIC/PIB"),"topright")
+mymatplot(resBaseline[seq(101,3101,100),],c("EPARSOEIHIC/PIB"),"topright")
+mymatplot(resBaseline[seq(101,3101,100),],c("RDSOEIHIC/PIB"),"topright")
+mymatplot(resBaseline[seq(101,3101,100),],c("EBEMNAHIC/PIB"),"topright")
+mymatplot(resBaseline[seq(101,3101,100),],c("VAMNAHIC/PIB"),"topright")
+mymatplot(resBaseline[seq(101,3101,100),],c("(UIIA+UINAHIAHIC+CONSIA+CONSNAHIAHIC+CGMNAHIC+INA+SNA_Flux+XNAHIC)/((MTCNAHIC+TAXESNAHIC-SPTNA)-PFATMNAHIC+MNAHIC)"),"topright")
+```
+
+
+## SHIC
+
+```{r figSHIC2, fig.height = 4, fig.width = 9, fig.align = "center", echo=FALSE}
+# par(mfcol=c(2,2))
+mymatplot(resBaseline,c("DBSHIC_IC/PIB","DgSHIC/PIB","DwSHIC_IC/PIB"),"bottomright")
+mymatplot(resBaseline,c("BgSHIC/PIB","BshicW/PIB"),"bottomright")
+mymatplot(resBaseline,c("LNDSHIC_N/PIB","CwIC_SHIC/PIB","CwW_SHIC/PIB"),"bottomright")
+# mymatplot(resBaseline,c("E_SHIC_N/(VSKNA*IPI)","ESHIC_IC/(VSKNA*IPI)"),"bottomright")
+mymatplot(resBaseline,c("E_SHIC_N/PIB","ESHIC_IC/PIB"),"bottomright")
+```  
+
+## APU
+
+```{r figAPU2, fig.height = 4, fig.width = 9, fig.align = "center", echo=FALSE}
+# par(mfcol=c(2,2))
+mymatplot(resBaseline,c("CAPFG/PIB"),"bottomright")
+mymatplot(resBaseline,c("EPARG/PIB"),"bottomright")
+# mymatplot(resBaseline,c("EPARW/PIB"),"bottomright")
+mymatplot(resBaseline,c("IG/PIB"),"bottomright")
+mymatplot(resBaseline,c("RDG/PIB"),"bottomright")
+mymatplot(resBaseline,c("CG/PIB"),"bottomright")
+mymatplot(resBaseline,c("(RDG-TAXES-IntG_R+IntG_V)/PIB"),"bottomright")
+mymatplot(resBaseline,c("(RDG-TVANA-TICNA-IntG_R+IntG_V)/PIB"),"bottomright")
+mymatplot(resBaseline,c("DBG_IC/PIB","Dg_N/PIB"),"bottomright")
+mymatplot(resBaseline,c("Bg_N/PIB","BgW/PIB"),"bottomright")
+mymatplot(resBaseline,c("CBIC_G/PIB","Cw_G/PIB"),"bottomright")
+mymatplot(resBaseline,c("E_BAM/PIB","EG_IC/PIB","EG_SHIC/PIB"),"bottomright")
+``` 
+
+## RDM
+
+```{r figRDM2, fig.height = 4, fig.width = 9, fig.align = "center", echo=FALSE}
+# par(mfcol=c(2,3))
+# ARdot=-+BfW_SHICdot-CwIC_Wdot+CwWdot+EW_Ndot-OWdot
+mymatplot(resBaseline,c("CAPFW/PIB"),"bottomright")
+mymatplot(resBaseline,c("BCRDM/PIB"),"bottomright")
+# mymatplot(resBaseline,c("EPARW/PIB"),"bottomright")
+mymatplot(resBaseline,c("XBS/PIB","MBS/PIB"),"bottomright")
+
+``` 
+
+```{r figBAM2, fig.height = 4, fig.width = 9, fig.align = "center", echo=FALSE}
+# par(mfcol=c(2,3))
+mymatplot(resBaseline,c("ORDTS/PIB"),"bottomright")
+mymatplot(resBaseline,c("Dw_Wdot/PIB","DwW_ICdot/PIB"),"bottomright")
+mymatplot(resBaseline,c("Bwdot/PIB","BshicgWdot/PIB","ARdot/PIB"),"bottomright")
+mymatplot(resBaseline,c("CwIC_Wdot/PIB","CwWdot/PIB","BfW_SHICdot/PIB"),"bottomright")
+mymatplot(resBaseline,c("EW_IC_N/PIB","EW_SHIC_N/PIB"),"bottomright")
+``` 
+
+## Menages
+
+```{r figMenages, fig.height = 4, fig.width = 9, fig.align = "center", echo=FALSE}
+# par(mfcol=c(1,2))
+mymatplot(resBaseline,c("MFIDM/PIB","DBM_IC/PIB"),"bottomright")
+mymatplot(resBaseline,c("CBIC_M/PIB"),"bottomright")
+``` 
+## IC
+```{r figIC3, fig.height = 4, fig.width = 9, fig.align = "center", echo=FALSE}
+# par(mfcol=c(2,3))
+mymatplot(resBaseline,c("DBIC_BAM/PIB","DgIC/PIB","DwIC_W/PIB"),"bottomright")
+mymatplot(resBaseline,c("DB_IC_N/PIB","Dw_IC_N/PIB"),"bottomright")
+mymatplot(resBaseline,c("BgIC/PIB","BwIC/PIB","LNDIC_N/PIB","CwIC_N/PIB"),"bottomright")
+mymatplot(resBaseline,c("CBBAM_IC/PIB","CwW_IC/PIB"),"bottomright")
+mymatplot(resBaseline,c("EIC_SHIC/PIB"),"bottomright")
+mymatplot(resBaseline,c("E_IC_N/PIB"),"bottomright")
+``` 
+## BAM
+
+```{r figBAM3, fig.height = 4, fig.width = 9, fig.align = "center", echo=FALSE}
+# par(mfcol=c(2,3))
+mymatplot(resBaseline,c("ORDTS/PIB"),"bottomright")
+mymatplot(resBaseline,c("DB_BAM/PIB"),"bottomright")
+mymatplot(resBaseline,c("DwBAM_W/PIB"),"bottomright")
+mymatplot(resBaseline,c("BgBAM/PIB","BwBAM/PIB"),"bottomright")
+mymatplot(resBaseline,c("E_BAM/PIB"),"bottomright")
+``` 
+
+## rhoMNA
+
+```{r figProductivite, fig.height = 9, fig.width = 12, fig.align = "center"}
+par(mfcol=c(1,2))
+mymatplot(resBaseline,c("growth(rhoMNALT)"),"topright")
+mymatplot(resBaseline,c("rhoMNA_Cr"),"topright")
+
+```
+
+## IC
+
+```{r figIC, fig.height = 4, fig.width = 9, fig.align = "center", echo=FALSE}
+par(mfcol=c(2,3))
+mymatplot(resBaseline,c("DBIC_BAMdot/DBIC_BAM","DB_IC_Ndot/DB_IC_N","DgICdot/DgIC"),"bottomright")
+mymatplot(resBaseline,c("growth(BgIC)"),"bottomright")
+mymatplot(resBaseline,c("growth(Bg_N)","growth(BgSHIC)","growth(BgBAM)"),"bottomright")
+mymatplot(resBaseline,c("BwICdot/BwIC","LNDIC_Ndot/LNDIC_N","CwIC_Ndot/CwIC_N"),"bottomright")
+mymatplot(resBaseline,c("CwW_ICdot/CwW_IC","E_IC_Ndot/E_IC_N","EIC_SHICdot/EIC_SHIC"),"bottomright")
+mymatplot(resBaseline,c("growth(CBBAM_IC)"),"bottomright")
+``` 
+
+## SHIC
+
+```{r figSHIC, fig.height = 4, fig.width = 9, fig.align = "center", echo=FALSE}
+par(mfcol=c(2,2))
+mymatplot(resBaseline,c("growth(DBSHIC_IC)","growth(DgSHIC)","growth(DwSHIC_IC)"),"bottomright")
+mymatplot(resBaseline,c("growth(BgSHIC)","growth(BshicW)"),"bottomright")
+mymatplot(resBaseline,c("growth(LNDSHIC_N)","growth(CwIC_SHIC)","growth(CwW_SHIC)"),"bottomright")
+mymatplot(resBaseline,c("growth(E_SHIC_N)","growth(ESHIC_IC)"),"bottomright")
+```  
+
+## APU
+
+```{r figAPU, fig.height = 4, fig.width = 9, fig.align = "center", echo=FALSE}
+par(mfcol=c(2,2))
+mymatplot(resBaseline,c("growth(DBG_IC)","growth(Dg_N)"),"bottomright")
+mymatplot(resBaseline,c("growth(Bg_N)","growth(BgW)"),"bottomright")
+mymatplot(resBaseline,c("growth(CBIC_G)","growth(Cw_G)"),"bottomright")
+mymatplot(resBaseline,c("growth(E_BAM)","growth(EG_IC)","growth(EG_SHIC)"),"bottomright")
+``` 
+
+## RDM
+
+```{r figRDM, fig.height = 4, fig.width = 9, fig.align = "center", echo=FALSE}
+par(mfcol=c(2,3))
+mymatplot(resBaseline,c("growth(ORDTS)"),"bottomright")
+mymatplot(resBaseline,c("growth(Dw_W)","growth(DwW_IC)"),"bottomright")
+mymatplot(resBaseline,c("growth(Bw)","growth(BshicgW)"),"bottomright")
+mymatplot(resBaseline,c("growth(CwIC_W)","growth(CwW)","growth(BfW_SHIC)"),"bottomright")
+mymatplot(resBaseline,c("growth(EW_IC_N)","growth(EW_SHIC_N)"),"bottomright")
+``` 
+
+## BAM
+
+```{r figBAM, fig.height = 4, fig.width = 9, fig.align = "center", echo=FALSE}
+par(mfcol=c(2,3))
+mymatplot(resBaseline,c("growth(ORDTS)"),"bottomright")
+mymatplot(resBaseline,c("growth(DB_BAM)"),"bottomright")
+mymatplot(resBaseline,c("growth(DwBAM_W)"),"bottomright")
+mymatplot(resBaseline,c("growth(BgBAM)","growth(BwBAM)"),"bottomright")
+mymatplot(resBaseline,c("growth(E_BAM)"),"bottomright")
+``` 
+
+

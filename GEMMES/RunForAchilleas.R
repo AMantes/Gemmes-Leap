@@ -14,6 +14,19 @@ names(y0)<-row.names(read.table("y0.csv",sep=";",dec=","))
 
 resBaseline <- cppRK4(modeleBaseline,parms=parms,y0=y0)
 
+dataEXOG<-read.csv("defaultEXOG.csv",sep=";",dec=",")
+
+LEAP=read.csv("LEAP_extract.csv",sep=";",dec=",")
+dataEXOG$VPRODA<-LEAP$VPRODA+rnorm(length(LEAP$VPRODA),10000,20000)
+
+resAlt <- cppRK4(modeleBaseline,parms=parms,y0=y0,dataExogVar = dataEXOG)
+
+allRes<-list()
+allRes[['baseline']]<-resBaseline
+allRes[['alternative']]<-resAlt
+
+mymatplotcompare(allRes,"PIB","topleft")
+
 # par(mfcol=c(2,4))
 # mymatplot(resBaseline,c("VSKNA/VPRODMNA"),"bottomright")
 # mymatplot(resBaseline,c("(VYDMNANet-VYDMNAe)/VYDMNAe"),"bottomright")

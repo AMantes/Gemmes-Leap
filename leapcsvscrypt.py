@@ -5,6 +5,7 @@ foo111 at the moment is solar panels investment.
 It exports back a cleaned version that cen be imported in Gemmes.
 The cleaned version needs to be transposed and cut to 32 years (atm 57); this takes place inside the Gemmes script.
 
+Todo: Wrap this script in a function inside runleap.py
 
 @author: Achilleas
 """

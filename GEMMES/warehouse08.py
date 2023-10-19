@@ -24,7 +24,7 @@ def run_gemmes_init():
     resG 
     
 # Run Gemmes
-# To be used after compilation.
+# To be used after Gemmes is compiled
 def run_gemmes():
     with open("input.csv", "w") as f: # write mode
         f.write(input_data)

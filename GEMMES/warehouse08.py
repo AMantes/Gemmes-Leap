@@ -14,6 +14,12 @@ import pandas as pd
 working_directory = os.getcwd()
 os.chdir(working_directory)
 
+# Usage
+area_name = "morocco_1" # set the appropriate LEAP model
+scenario_name = "Net zéro" #set the scenarios you want to run
+favorite_chart_name = "foo" # set the favorite chart you want to export
+leap_csv_path = r"C:\Users\Achilleas\Documents\Gemmes\foo111.csv" # set the path and csv name for LEAP's output
+cleaned_csv_path = r"C:\Users\Achilleas\Documents\Gemmes\cleaned_foo2.csv" # set the path and name for the cleaned csv; to be imported in Gemmes
 
 
 # Initialise Gemmes
@@ -26,13 +32,9 @@ def run_gemmes_init():
 # Run Gemmes
 # To be used after Gemmes is compiled
 def run_gemmes():
-    with open("input.csv", "w") as f: # write mode
-        f.write(input_data)
-        subprocess.call(["C:/Program Files/R/R-4.2.1/bin/Rscript", "C:/Users/Achilleas/Documents/Gemmes/RunGemmes.R"], shell=True) # change paths as needed; it runs from powershell
-return pd.read_csv("Gemmesresults.csv") #returns a dataframe with the results from running the R script
-    
+    subprocess.call(["C:/Program Files/R/R-4.2.1/bin/Rscript", "C:/Users/Achilleas/Documents/Gemmes/RunGemmes.R"], shell=True)
 
-#
+# Run LEAP
 def run_leap(area, scenario, favorite_name):
     # Initialize LEAP
     leap = win32.Dispatch('LEAP.LEAPApplication')
@@ -83,12 +85,6 @@ def clean_leap_output(leap_csv_path, cleaned_csv_path):
 
 
 
-# Usage
-area_name = "lt-leds maroc v0.105_wresults_am"
-scenario_name = "Net zéro"
-favorite_chart_name = "foo"
-leap_csv_path = r"C:\Users\Achilleas\Documents\Gemmes\foo111.csv"
-cleaned_csv_path = r"C:\Users\Achilleas\Documents\Gemmes\cleaned_foo2.csv"
 
 
 
